@@ -1,0 +1,15 @@
+venv/
+.env
+
+__pycache__/
+*.pyc
+
+faiss_index.index
+
+backend/rag/ocr_cache.txt
+backend/rag/chunks.json
+
+.DS_Store
+.idea/
+.vscode/
+*.pdf
