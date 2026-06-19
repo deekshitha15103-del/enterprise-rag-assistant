@@ -17,6 +17,8 @@ import os
 
 app = FastAPI(title="Enterprise RAG Assistant")
 
+chat_history = []
+
 print("Loading local full RAG system...")
 
 records = load_chunk_records()
@@ -49,8 +51,26 @@ def health():
     }
 
 
+@app.get("/history")
+def get_history():
+    return {
+        "history": chat_history
+    }
+
+
+@app.delete("/history")
+def clear_history():
+    chat_history.clear()
+
+    return {
+        "message": "Chat history cleared successfully"
+    }
+
+
 @app.post("/ask")
 def ask_question(request: QueryRequest):
+    global chat_history
+
     if index is None or len(records) == 0:
         return {
             "question": request.question,
@@ -67,8 +87,21 @@ def ask_question(request: QueryRequest):
 
     context_chunks = [item["text"] for item in retrieved]
 
+    previous_chat = ""
+
+    for item in chat_history[-5:]:
+        previous_chat += f"User: {item['question']}\nAssistant: {item['answer']}\n\n"
+
+    enhanced_question = f"""
+Previous conversation:
+{previous_chat}
+
+Current question:
+{request.question}
+"""
+
     answer = generate_answer(
-        request.question,
+        enhanced_question,
         context_chunks
     )
 
@@ -80,6 +113,14 @@ def ask_question(request: QueryRequest):
             "chunk_id": item["chunk_id"],
             "preview": item["text"][:300]
         })
+
+    chat_record = {
+        "question": request.question,
+        "answer": answer,
+        "sources": sources
+    }
+
+    chat_history.append(chat_record)
 
     return {
         "question": request.question,
