@@ -1,6 +1,17 @@
 # Enterprise RAG Assistant
 
 ## Overview
+## Live Demo
+
+API Base URL:
+
+https://enterprise-rag-assistant-j60w.onrender.com
+
+Swagger Docs:
+
+https://enterprise-rag-assistant-j60w.onrender.com/docs
+
+Note: The deployed Render version runs a lightweight API due to free-tier memory limits. Full OCR + FAISS RAG retrieval works locally.
 
 Enterprise RAG Assistant is a Retrieval-Augmented Generation (RAG) system built using FastAPI, FAISS, OCR, and Sentence Transformers.
 

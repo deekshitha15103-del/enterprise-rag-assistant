@@ -1,26 +1,32 @@
-from backend.llm.claude_client import ClaudeClient
+import ollama
 
-client = ClaudeClient()
 
-def generate_answer(query, context_chunks):
+def generate_answer(question, context_chunks):
     context = "\n\n".join(context_chunks)
 
     prompt = f"""
-You are a strict RAG assistant.
+You are a helpful AI assistant.
 
-Rules:
-- Answer ONLY using the context below
-- If answer is not in context, say "I don't know"
-- Do NOT guess
-- Be clear and concise
+Use ONLY the context below.
 
 Context:
 {context}
 
 Question:
-{query}
+{question}
 
-Answer:
+If the answer is not in the context, say:
+'I could not find that information in the uploaded documents.'
 """
 
-    return client.invoke(prompt)
+    response = ollama.chat(
+        model="llama3.2:3b",
+        messages=[
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ]
+    )
+
+    return response["message"]["content"]
