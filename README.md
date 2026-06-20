@@ -1,42 +1,60 @@
 # Enterprise RAG Assistant
 
 ## Overview
-## Live Demo
 
-API Base URL:
+Enterprise RAG Assistant is a Retrieval-Augmented Generation (RAG) system built using FastAPI, FAISS, Sentence Transformers, Streamlit, OCR, and Ollama.
 
-https://enterprise-rag-assistant-j60w.onrender.com
+The application allows users to upload one or more PDF documents, automatically extract text (including scanned PDFs using OCR), generate embeddings, store them in a FAISS vector database, and ask natural language questions against the knowledge base.
 
-Swagger Docs:
-
-https://enterprise-rag-assistant-j60w.onrender.com/docs
-
-Note: The deployed Render version runs a lightweight API due to free-tier memory limits. Full OCR + FAISS RAG retrieval works locally.
-
-Enterprise RAG Assistant is a Retrieval-Augmented Generation (RAG) system built using FastAPI, FAISS, OCR, and Sentence Transformers.
-
-The system allows users to upload PDF documents, extract text using OCR when necessary, generate vector embeddings, store them in a FAISS vector database, and retrieve relevant information through semantic search.
+Answers are generated using Llama 3.2 through Ollama and include source references from the uploaded documents.
 
 ---
 
 ## Features
 
-* PDF Upload API
+### Document Processing
+
+* PDF Upload
+* Multi-PDF Knowledge Base
 * OCR Support for Scanned PDFs
 * Automatic Text Chunking
+* Persistent Document Storage
+
+### Retrieval System
+
 * Sentence Transformer Embeddings
-* FAISS Vector Search
+* FAISS Vector Database
+* Semantic Search
 * Source-Aware Retrieval
-* FastAPI Backend
+* Multi-Document Retrieval
+
+### LLM Integration
+
+* Ollama Integration
+* Llama 3.2 Local Inference
+* Context-Aware Responses
+* Conversational Memory
+
+### Frontend
+
+* Streamlit Chat Interface
+* Sidebar Document Management
+* Chat History
+* Clear Chat Option
+* Source Citations
+
+### Backend
+
+* FastAPI REST API
 * Swagger Documentation
-* Persistent Chunk Storage
 * Persistent FAISS Index Storage
+* Persistent Chunk Storage
 
 ---
 
 ## Architecture
 
-PDF Document
+PDF Documents
 
 ↓
 
@@ -48,7 +66,7 @@ Text Chunking
 
 ↓
 
-Embedding Generation
+Sentence Transformer Embeddings
 
 ↓
 
@@ -56,28 +74,53 @@ FAISS Vector Database
 
 ↓
 
-Retriever
+Semantic Retrieval
 
 ↓
 
-LLM Layer
+Context Generation
 
 ↓
 
-API Response
+Llama 3.2 (Ollama)
+
+↓
+
+Answer + Sources
+
+↓
+
+Streamlit Frontend
 
 ---
 
 ## Tech Stack
 
+### Backend
+
 * Python 3.11
 * FastAPI
+* Uvicorn
+
+### Retrieval
+
 * FAISS
 * Sentence Transformers
+
+### Document Processing
+
 * PyPDF
 * Tesseract OCR
 * PDF2Image
-* Uvicorn
+
+### LLM
+
+* Ollama
+* Llama 3.2
+
+### Frontend
+
+* Streamlit
 
 ---
 
@@ -87,55 +130,105 @@ API Response
 
 Health Check Endpoint
 
+### GET /health
+
+Application Health Status
+
+### GET /history
+
+Retrieve Chat History
+
+### DELETE /history
+
+Clear Chat History
+
 ### POST /upload
 
-Upload and index PDF documents.
+Upload and index PDF documents
 
 ### POST /ask
 
-Ask questions against the indexed knowledge base.
+Ask questions against the indexed knowledge base
 
 ---
 
 ## Project Structure
 
-backend/
+enterprise-rag-assistant/
 
-├── api/
+├── backend/
 
-├── ingestion/
+│   ├── api/
 
-├── llm/
+│   ├── rag/
 
-├── rag/
+│   ├── retrieval/
 
-├── retrieval/
+│   └── cache/
 
-└── utils/
+│
+
+├── frontend/
+
+│   └── app.py
+
+│
+
+├── README.md
+
+├── requirements.txt
+
+└── .gitignore
 
 ---
 
 ## Current Status
 
-Completed:
+### Completed
 
 * OCR Pipeline
 * PDF Ingestion
-* Vector Search
-* Source Tracking
+* Multi-PDF Support
+* Semantic Search
+* FAISS Vector Database
+* Source Attribution
+* Chat History
+* Streamlit Frontend
+* Ollama Integration
+* Llama 3.2 Integration
 * FastAPI Backend
 * GitHub Integration
 
-Planned:
+### Future Enhancements
 
-* Real Claude Integration
-* Multi-Document Search
-* User Authentication
-* Chat History
+* Page-Level Citations
 * Cloud Deployment
+* Authentication
+* AWS Bedrock Integration
+* Advanced Analytics Dashboard
+
+---
+
+## Local Run
+
+### Backend
+
+```bash
+uvicorn backend.api.app:app --reload
+```
+
+### Frontend
+
+```bash
+streamlit run frontend/app.py
+```
 
 ---
 
 ## Author
 
 Deekshitha
+
+B.Tech Computer Science Engineering
+
+AI/ML Enthusiast
