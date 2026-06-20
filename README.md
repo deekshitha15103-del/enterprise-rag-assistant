@@ -1,6 +1,6 @@
-# Enterprise RAG Assistant
+Enterprise RAG Assistant
 
-## Overview
+Overview
 
 Enterprise RAG Assistant is a Retrieval-Augmented Generation (RAG) system built using FastAPI, FAISS, Sentence Transformers, Streamlit, OCR, and Ollama.
 
@@ -8,227 +8,41 @@ The application allows users to upload one or more PDF documents, automatically 
 
 Answers are generated using Llama 3.2 through Ollama and include source references from the uploaded documents.
 
----
 
-## Features
 
-### Document Processing
+Live Demo & Deployment Notes
 
-* PDF Upload
-* Multi-PDF Knowledge Base
-* OCR Support for Scanned PDFs
-* Automatic Text Chunking
-* Persistent Document Storage
+GitHub Repository
 
-### Retrieval System
+https://github.com/deekshitha15103-del/enterprise-rag-assistant
 
-* Sentence Transformer Embeddings
-* FAISS Vector Database
-* Semantic Search
-* Source-Aware Retrieval
-* Multi-Document Retrieval
+Render Deployment
 
-### LLM Integration
+https://enterprise-rag-assistant-j60w.onrender.com
 
-* Ollama Integration
-* Llama 3.2 Local Inference
-* Context-Aware Responses
-* Conversational Memory
+Swagger API Documentation
 
-### Frontend
+https://enterprise-rag-assistant-j60w.onrender.com/docs
 
-* Streamlit Chat Interface
-* Sidebar Document Management
-* Chat History
-* Clear Chat Option
-* Source Citations
+Deployment Note
 
-### Backend
+The complete Enterprise RAG Assistant runs locally using:
 
-* FastAPI REST API
-* Swagger Documentation
-* Persistent FAISS Index Storage
-* Persistent Chunk Storage
+- Ollama
+- Llama 3.2
+- FAISS Vector Database
+- Sentence Transformers
+- OCR Pipeline
 
----
+The hosted Render deployment uses a lightweight configuration because the free Render tier provides only 512 MB RAM, which is insufficient for running the complete local RAG pipeline with Ollama and vector retrieval.
 
-## Architecture
+The full-featured version demonstrated in this repository runs successfully in a local environment and includes:
 
-PDF Documents
+- Multi-PDF Support
+- Conversational Memory
+- OCR Processing
+- Semantic Search
+- Source Attribution
+- Streamlit Frontend
+- Ollama-Based Answer Generation
 
-↓
-
-OCR / Text Extraction
-
-↓
-
-Text Chunking
-
-↓
-
-Sentence Transformer Embeddings
-
-↓
-
-FAISS Vector Database
-
-↓
-
-Semantic Retrieval
-
-↓
-
-Context Generation
-
-↓
-
-Llama 3.2 (Ollama)
-
-↓
-
-Answer + Sources
-
-↓
-
-Streamlit Frontend
-
----
-
-## Tech Stack
-
-### Backend
-
-* Python 3.11
-* FastAPI
-* Uvicorn
-
-### Retrieval
-
-* FAISS
-* Sentence Transformers
-
-### Document Processing
-
-* PyPDF
-* Tesseract OCR
-* PDF2Image
-
-### LLM
-
-* Ollama
-* Llama 3.2
-
-### Frontend
-
-* Streamlit
-
----
-
-## API Endpoints
-
-### GET /
-
-Health Check Endpoint
-
-### GET /health
-
-Application Health Status
-
-### GET /history
-
-Retrieve Chat History
-
-### DELETE /history
-
-Clear Chat History
-
-### POST /upload
-
-Upload and index PDF documents
-
-### POST /ask
-
-Ask questions against the indexed knowledge base
-
----
-
-## Project Structure
-
-enterprise-rag-assistant/
-
-├── backend/
-
-│   ├── api/
-
-│   ├── rag/
-
-│   ├── retrieval/
-
-│   └── cache/
-
-│
-
-├── frontend/
-
-│   └── app.py
-
-│
-
-├── README.md
-
-├── requirements.txt
-
-└── .gitignore
-
----
-
-## Current Status
-
-### Completed
-
-* OCR Pipeline
-* PDF Ingestion
-* Multi-PDF Support
-* Semantic Search
-* FAISS Vector Database
-* Source Attribution
-* Chat History
-* Streamlit Frontend
-* Ollama Integration
-* Llama 3.2 Integration
-* FastAPI Backend
-* GitHub Integration
-
-### Future Enhancements
-
-* Page-Level Citations
-* Cloud Deployment
-* Authentication
-* AWS Bedrock Integration
-* Advanced Analytics Dashboard
-
----
-
-## Local Run
-
-### Backend
-
-```bash
-uvicorn backend.api.app:app --reload
-```
-
-### Frontend
-
-```bash
-streamlit run frontend/app.py
-```
-
----
-
-## Author
-
-Deekshitha
-
-B.Tech Computer Science Engineering
-
-AI/ML Enthusiast
