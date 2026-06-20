@@ -138,6 +138,15 @@ async def upload_pdf(file: UploadFile = File(...)):
 
     file_path = os.path.join(upload_dir, file.filename)
 
+    # Prevent duplicate indexing
+    for record in records:
+        if record["source"] == file.filename:
+            return {
+                "message": "File already indexed. Skipping re-indexing.",
+                "filename": file.filename,
+                "total_chunks": len(records)
+            }
+
     with open(file_path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
 
